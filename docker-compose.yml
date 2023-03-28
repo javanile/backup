@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  backup:
+    build: .
+    command:
+      - "* * * * * backup"
+    volumes:
+      - ./tmp/mysql:/data/mysql
+
+  mysql:
+    image: mysql:8
+    volumes:
+      - ./tmp/mysql:/var/lib/mysql
+
