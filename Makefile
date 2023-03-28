@@ -31,5 +31,5 @@ test-bash: build
 	@docker compose run --rm crontab bash
 
 test-log: build
-	@docker compose up --force-recreate crontab
-	@docker compose logs -f crontab
+	@docker compose up --force-recreate backup
+	@docker compose logs -f backup

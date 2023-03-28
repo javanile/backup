@@ -24,7 +24,7 @@ ENV CHUNK_SIZE 0
 ENV PARALLEL_UPLOADS 3
 
 RUN apt-get update -yqq && \
-    apt-get install -y ca-certificates openssh-client mysql-client postgresql-client lftp && \
+    apt-get install -y ca-certificates openssh-client default-mysql-client postgresql-client lftp && \
     mkdir -p /backups
 
 ADD etc/lftp.conf /etc/lftp.conf

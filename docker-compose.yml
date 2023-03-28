@@ -10,6 +10,19 @@ services:
 
   mysql:
     image: mysql:8
+    environment:
+      - MYSQL_DATABASE=mysql
+      - MYSQL_ROOT_PASSWORD=secret
     volumes:
       - ./tmp/mysql:/var/lib/mysql
 
+  ftp:
+    image: garethflowers/ftp-server
+    environment:
+      - FTP_USER=user
+      - FTP_PASS=123
+    ports:
+      - '20-21:20-21/tcp'
+      - '40000-40009:40000-40009/tcp'
+    volumes:
+      - ./tmp/ftp:/home/user
