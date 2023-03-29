@@ -27,8 +27,16 @@ RUN apt-get update -yqq && \
     apt-get install -y ca-certificates openssh-client default-mysql-client postgresql-client lftp && \
     mkdir -p /backups
 
+RUN apt-get update -yqq && \
+    apt-get install -y ca-certificates cron rsyslog
+
 ADD etc/lftp.conf /etc/lftp.conf
 ADD etc/ssh/ssh_config.d/strict.conf /etc/ssh/ssh_config.d/strict.conf
 COPY backup.sh backup-entrypoint.sh /usr/local/bin/
 
-CMD ["/bin/bash","/conf/doBackup.sh"]
+RUN echo "cron.* /dev/stdout" >> /etc/rsyslog.conf && rm -fr /etc/cron.* && >/etc/crontab && mkdir /etc/cron.d
+
+#CMD ["/bin/bash","/conf/doBackup.sh"]
+
+ENTRYPOINT ["backup-entrypoint.sh"]
+CMD ["cron", "-f", "-L", "8"]

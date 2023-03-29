@@ -25,10 +25,10 @@ test-up: build
 	@rm -f debug.log date.log
 	@echo "* * * * * date >> /app/debug.log" > crontab
 	@echo "* * * * * cd /app && docker-compose ps >> /app/debug.log" >> crontab
-	@docker compose up crontab
+	@docker compose up backup
 
 test-bash: build
-	@docker compose run --rm crontab bash
+	@docker compose run --rm backup bash
 
 test-log: build
 	@docker compose up --force-recreate backup
