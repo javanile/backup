@@ -34,6 +34,9 @@ ADD etc/lftp.conf /etc/lftp.conf
 ADD etc/ssh/ssh_config.d/strict.conf /etc/ssh/ssh_config.d/strict.conf
 COPY backup.sh backup-entrypoint.sh cron-foreground.sh /usr/local/bin/
 
+# Create cronjob log file
+RUN touch /var/log/cron
+RUN ln -sf /proc/$$/fd/1 /var/log/cron
 RUN echo "cron.* /dev/stdout" >> /etc/rsyslog.conf && rm -fr /etc/cron.* && mkdir /etc/cron.d
 
 #CMD ["/bin/bash","/conf/doBackup.sh"]

@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e
 
-rsyslogd && true
+rsyslogd
 cron -f -L 15
 
-#tail -f /var/log/cron
