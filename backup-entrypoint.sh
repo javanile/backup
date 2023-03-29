@@ -9,7 +9,7 @@ chown root:crontab $crontab
 
 if [[ "$1" =~ ^[0-9*] ]]; then
   while test $# -gt 0; do
-    echo "$1 > /var/log/cron 2>&1" >> $crontab
+    echo "$1 > /dev/stdout 2>&1" >> $crontab
     shift
   done
   set -- cron-foreground.sh
