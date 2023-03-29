@@ -9,10 +9,10 @@ chown root:crontab $crontab
 
 if [[ "$1" =~ ^[0-9*] ]]; then
   while test $# -gt 0; do
-    echo "$1 > /dev/stdout 2>&1" >> $crontab
+    echo "$1 > /var/log/cron 2>&1" >> $crontab
     shift
   done
-  set -- cron -f -L 15
+  set -- cron-foreground.sh
 fi
 
 if [ -f /etc/crontab ]; then
@@ -20,13 +20,11 @@ if [ -f /etc/crontab ]; then
   #>/etc/crontab
   #chmod 600 /etc/crontab
   echo "-----"
-  cat /etc/crontab
+  #cat /etc/crontab
 fi
 
-rsyslogd && true
-
-crontab -u root $crontab
-crontab -l
+#crontab -u root $crontab
+#crontab -l
 
 start_date=$(date +'%Y-%m-%d %H:%M:%S')
 echo "==> File: $crontab"

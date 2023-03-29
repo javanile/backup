@@ -32,11 +32,11 @@ RUN apt-get update -yqq && \
 
 ADD etc/lftp.conf /etc/lftp.conf
 ADD etc/ssh/ssh_config.d/strict.conf /etc/ssh/ssh_config.d/strict.conf
-COPY backup.sh backup-entrypoint.sh /usr/local/bin/
+COPY backup.sh backup-entrypoint.sh cron-foreground.sh /usr/local/bin/
 
-RUN echo "cron.* /dev/stdout" >> /etc/rsyslog.conf && rm -fr /etc/cron.* && mkdir /etc/cron.d
+RUN echo "cron.* /var/log/cron" >> /etc/rsyslog.conf && rm -fr /etc/cron.* && mkdir /etc/cron.d
 
 #CMD ["/bin/bash","/conf/doBackup.sh"]
 
 ENTRYPOINT ["backup-entrypoint.sh"]
-CMD ["cron", "-f", "-L", "15"]
+CMD ["cron-foreground.sh"]

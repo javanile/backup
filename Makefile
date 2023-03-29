@@ -1,6 +1,6 @@
 
 build:
-	@chmod +x backup.sh backup-entrypoint.sh
+	@chmod +x backup.sh backup-entrypoint.sh cron-foreground.sh
 	@docker-compose build backup
 
 release:
@@ -30,5 +30,5 @@ test-bash: build
 	@docker compose run --rm backup bash
 
 test-log: build
-	@docker compose up --force-recreate backup
+	@docker compose up -d --force-recreate backup
 	@docker compose logs -f backup
