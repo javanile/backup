@@ -4,8 +4,10 @@ services:
   backup:
     build: .
     command:
-      - "* * * * * backup"
+      - "* * * * * ls -la /"
     volumes:
+      - ./:/app
+      - ./crontab:/etc/crontab
       - ./tmp/mysql:/data/mysql
 
   mysql:

@@ -34,9 +34,9 @@ ADD etc/lftp.conf /etc/lftp.conf
 ADD etc/ssh/ssh_config.d/strict.conf /etc/ssh/ssh_config.d/strict.conf
 COPY backup.sh backup-entrypoint.sh /usr/local/bin/
 
-RUN echo "cron.* /dev/stdout" >> /etc/rsyslog.conf && rm -fr /etc/cron.* && >/etc/crontab && mkdir /etc/cron.d
+RUN echo "cron.* /dev/stdout" >> /etc/rsyslog.conf && rm -fr /etc/cron.* && mkdir /etc/cron.d
 
 #CMD ["/bin/bash","/conf/doBackup.sh"]
 
 ENTRYPOINT ["backup-entrypoint.sh"]
-CMD ["cron", "-f", "-L", "8"]
+CMD ["cron", "-f", "-L", "15"]

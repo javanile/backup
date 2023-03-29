@@ -23,8 +23,7 @@ test-docker-ps:
 
 test-up: build
 	@rm -f debug.log date.log
-	@echo "* * * * * date >> /app/debug.log" > crontab
-	@echo "* * * * * cd /app && docker-compose ps >> /app/debug.log" >> crontab
+	@echo "* * * * * root date >> /app/debug.log" > crontab
 	@docker compose up backup
 
 test-bash: build
