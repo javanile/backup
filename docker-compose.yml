@@ -40,3 +40,11 @@ services:
       - '40000-40009:40000-40009/tcp'
     volumes:
       - ./tmp/ftp:/home/user
+
+  adminer:
+    image: javanile/adminer
+    environment:
+      - MYSQL_DATABASE=demo
+      - MYSQL_ROOT_PASSWORD=secret
+    ports:
+      - 8080:8080
