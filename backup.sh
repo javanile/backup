@@ -40,9 +40,9 @@ fi
 if [[ -n "$FTP_HOST" ]]; then
     # Create remote dir if does not exists
     echo "[`date '+%Y-%m-%d %H:%M:%S'`] Create remote dir if does not exists…"
-    ${LFTP} -v ${LFTP_CMD} <<EOF
+    ${LFTP} ${LFTP_CMD} <<EOF
 cache flush;
-cd ${REMOTE_PATH} || mkdir -p ${REMOTE_PATH};
+cd ${REMOTE_PATH} || mkdir ${REMOTE_PATH} || mkdir -p ${REMOTE_PATH};
 bye;
 EOF
 fi
