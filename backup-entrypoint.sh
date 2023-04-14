@@ -3,6 +3,9 @@ set -e
 
 crontab=/var/spool/cron/crontabs/root
 
+## store environment variables
+printenv | sed 's/^\(.*\)$/export \1/g' | grep -E '^export FTP_|^export DB_|^export REMOTE_' > /run/crond.env
+
 >$crontab
 chmod 600 $crontab
 chown root:crontab $crontab

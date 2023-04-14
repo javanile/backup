@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Author: Ambroise Maupate
 
+source /run/crond.env
+
 PGDUMP="$(which pg_dump)"
 MYSQLDUMP="$(which mysqldump)"
 TAR="$(which tar)"
