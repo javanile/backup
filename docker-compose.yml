@@ -4,7 +4,7 @@ services:
   backup:
     build: .
     command:
-      - "* * * * * backup.sh"
+      - '* * * * * backup.sh daily'
     environment:
       - DB_HOST=mysql
       - DB_USER=root
@@ -29,6 +29,7 @@ services:
       - MYSQL_ROOT_PASSWORD=secret
     volumes:
       - ./tmp/mysql:/var/lib/mysql
+      - ./tests/fixtures:/docker-entrypoint-initdb.d/
 
   ftp:
     image: delfer/alpine-ftp-server
