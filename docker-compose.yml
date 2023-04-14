@@ -10,10 +10,11 @@ services:
       - DB_USER=root
       - DB_PASS=secret
       - DB_NAME=demo
-      - FTP_HOST=ftp
-      - FTP_USER=user
-      - FTP_PASS=1234
-      - REMOTE_PATH=/ftp/user/backup
+      - FTP_PROTO=ftp
+      - FTP_HOST=192.168.144.50
+      - FTP_USER=backup
+      - FTP_PASS=Backup1234!
+      - REMOTE_PATH=/Machines/Volafacile
     volumes:
       - ./:/app
       - ./crontab:/etc/crontab
