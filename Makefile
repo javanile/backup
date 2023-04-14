@@ -8,8 +8,8 @@ release:
 	@git commit -am "New release!"
 	@git push
 	@docker login -u javanile
-	@docker build -t "javanile/crontab:latest" .
-	@docker push "javanile/crontab:latest"
+	@docker build -t "javanile/backup:latest" .
+	@docker push "javanile/backup:latest"
 
 ## ====
 ## Test
