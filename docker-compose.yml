@@ -13,7 +13,7 @@ services:
       - FTP_HOST=ftp
       - FTP_USER=user
       - FTP_PASS=1234
-      - REMOTE_PATH=/home/user/backup
+      - REMOTE_PATH=/ftp/user/backup
     volumes:
       - ./:/app
       - ./crontab:/etc/crontab
@@ -39,7 +39,7 @@ services:
       - '20-21:20-21/tcp'
       - '40000-40009:40000-40009/tcp'
     volumes:
-      - ./tmp/ftp:/home/user
+      - ./tmp/ftp:/ftp/user
 
   adminer:
     image: javanile/adminer
