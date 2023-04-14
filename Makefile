@@ -30,5 +30,11 @@ test-bash: build
 	@docker compose run --rm backup bash
 
 test-log: build
+	@>crontab
 	@docker compose up -d --force-recreate backup
 	@docker compose logs -f backup
+
+test-backup: build
+	@>crontab
+	@docker compose up -d --force-recreate backup
+	@docker compose exec backup backup.sh

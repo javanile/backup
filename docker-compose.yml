@@ -4,16 +4,25 @@ services:
   backup:
     build: .
     command:
-      - "* * * * * ls -la /"
+      - "* * * * * backup.sh"
+    environment:
+      - DB_NAME=demo
+      - FTP_HOST=ftp
+      - FTP_USER=user
+      - FTP_PASS=123
+      - REMOTE_PATH=/home/user/backup
     volumes:
       - ./:/app
       - ./crontab:/etc/crontab
       - ./tmp/mysql:/data/mysql
+    links:
+      - ftp
+      - mysql
 
   mysql:
     image: mysql:8
     environment:
-      - MYSQL_DATABASE=mysql
+      - MYSQL_DATABASE=demo
       - MYSQL_ROOT_PASSWORD=secret
     volumes:
       - ./tmp/mysql:/var/lib/mysql
