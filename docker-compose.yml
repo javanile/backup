@@ -6,10 +6,13 @@ services:
     command:
       - "* * * * * backup.sh"
     environment:
+      - DB_HOST=mysql
+      - DB_USER=root
+      - DB_PASS=secret
       - DB_NAME=demo
       - FTP_HOST=ftp
       - FTP_USER=user
-      - FTP_PASS=123
+      - FTP_PASS=1234
       - REMOTE_PATH=/home/user/backup
     volumes:
       - ./:/app
@@ -28,10 +31,9 @@ services:
       - ./tmp/mysql:/var/lib/mysql
 
   ftp:
-    image: garethflowers/ftp-server
+    image: delfer/alpine-ftp-server
     environment:
-      - FTP_USER=user
-      - FTP_PASS=123
+      - USERS=user|1234
     ports:
       - '20-21:20-21/tcp'
       - '40000-40009:40000-40009/tcp'

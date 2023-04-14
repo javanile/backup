@@ -10,7 +10,8 @@ GZIP="$(which gzip)"
 MKDIR="$(which mkdir)"
 TAR_OPTIONS="-zcf"
 SPLIT_OPTIONS="-b${CHUNK_SIZE}m"
-SQL_OPTIONS="--defaults-extra-file=/etc/mysql/temp_db.cnf --no-tablespaces --column-statistics=0"
+## --column-statistics=0
+SQL_OPTIONS="--defaults-extra-file=/etc/mysql/temp_db.cnf --no-tablespaces"
 FILE_DATE=`date +%Y%m%d_%H%M`
 TMP_FOLDER=/tmp
 TAR_FILE="${FILE_DATE}_files.tar.gz"
@@ -120,7 +121,8 @@ fi
 # Optional Postgres dump
 #
 if [[ ! -n "${PGDATABASE}" ]]; then
-  echo "[`date '+%Y-%m-%d %H:%M:%S'`] No PostgreSQL database to backup."
+  #echo "[`date '+%Y-%m-%d %H:%M:%S'`] No PostgreSQL database to backup."
+  true
 else
   # PostgreSQL dump
   echo "[`date '+%Y-%m-%d %H:%M:%S'`] PostgreSQL dump backup…"

@@ -36,5 +36,5 @@ test-log: build
 
 test-backup: build
 	@>crontab
-	@docker compose up -d --force-recreate backup
+	@docker compose up -d --force-recreate
 	@docker compose exec backup backup.sh
