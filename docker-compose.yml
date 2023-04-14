@@ -4,7 +4,7 @@ services:
   backup:
     build: .
     command:
-      - '* * * * * backup.sh daily'
+      - '* * * * * /usr/local/bin/backup.sh daily'
     environment:
       - DB_HOST=mysql
       - DB_USER=root

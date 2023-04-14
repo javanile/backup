@@ -34,6 +34,11 @@ test-log: build
 	@docker compose up -d --force-recreate backup
 	@docker compose logs -f backup
 
+test-cron: build
+	@>crontab && rm -fr tmp/ftp/backup
+	@docker compose up -d --force-recreate
+	@docker compose logs -f backup
+
 test-backup: build
 	@>crontab && rm -fr tmp/ftp/backup
 	@docker compose up -d --force-recreate
