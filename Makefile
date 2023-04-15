@@ -4,6 +4,7 @@ build:
 	@docker-compose build backup
 
 release:
+	@date > tests/RELEASE
 	@git add .
 	@git commit -am "New release!"
 	@git push
