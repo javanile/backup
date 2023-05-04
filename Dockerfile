@@ -12,7 +12,7 @@ ENV FTP_PASS pass
 ENV FTP_HOST mybackupserver.test
 ENV FTP_PORT 21
 ENV FTP_PROTO ftp
-ENV LOCAL_PATH /data
+ENV LOCAL_PATH data
 ENV REMOTE_PATH /my/backup/dir
 ENV COMPRESS 1
 # PostgreSQL defaults
@@ -34,7 +34,7 @@ RUN apt-get update -yqq && \
 
 ADD etc/lftp.conf /etc/lftp.conf
 ADD etc/ssh/ssh_config.d/strict.conf /etc/ssh/ssh_config.d/strict.conf
-COPY bin/backup.sh bin/backup-entrypoint.sh bin/cron-foreground.sh /usr/local/bin/
+COPY bin/backup.sh bin/docker-entrypoint.sh bin/cron-foreground.sh /usr/local/bin/
 
 # Create cronjob log file
 RUN touch /var/log/cron
@@ -44,6 +44,9 @@ RUN echo "cron.* /dev/stdout" >> /etc/rsyslog.conf && rm -fr /etc/cron.* && mkdi
 #CMD ["/bin/bash","/conf/doBackup.sh"]
 
 COPY bin/ping.sh /usr/local/bin/
+COPY bin/backup-pgsql.sh /usr/local/bin/
+COPY bin/backup-mysql.sh /usr/local/bin/
+COPY bin/backup-files.sh /usr/local/bin/
 
-ENTRYPOINT ["backup-entrypoint.sh"]
+ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["cron-foreground.sh"]

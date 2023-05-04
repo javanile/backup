@@ -37,20 +37,26 @@ test-bash: build
 	@docker compose run --rm backup bash
 
 test-log: build
-	@>crontab
+	@>etc/crontab
 	@docker compose up -d --force-recreate backup
 	@docker compose logs -f backup
 
 test-cron: build
-	@>crontab && rm -fr tmp/ftp/backup
+	@>etc/crontab && rm -fr tmp/ftp/backup
 	@docker compose up -d --force-recreate
 	@docker compose logs -f backup
 
 test-backup: build
-	@>crontab && rm -fr tmp/ftp/backup
+	@>etc/crontab && rm -fr tmp/ftp/backup
 	@docker compose up -d --force-recreate
 	@docker compose exec backup backup.sh
 
 test-ping: build
 	@docker compose up -d --force-recreate
 	@docker compose exec backup ping.sh
+
+test-backup-mysql: build
+	@docker compose run --rm backup backup-mysql.sh
+
+test-backup-files: build
+	@docker compose run --rm backup backup-files.sh

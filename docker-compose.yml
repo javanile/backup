@@ -4,17 +4,17 @@ services:
   backup:
     build: .
     command:
-      - '* * * * * /usr/local/bin/backup.sh daily'
+      - 0 0 0 * * backup.sh daily
     environment:
       - DB_HOST=mysql
       - DB_USER=root
       - DB_PASS=secret
-      - DB_NAME=demo
+      - DB_NAME=*
       - FTP_PROTO=ftp
-      - FTP_HOST=192.168.144.50
+      - FTP_HOST=192.168.144.1
       - FTP_USER=backup
       - FTP_PASS=Backup1234!
-      - REMOTE_PATH=/Machines/Volafacile
+      - REMOTE_PATH=/Local_storage/Backup/Testing
     volumes:
       - ./:/app
       - ./etc/crontab:/etc/crontab
