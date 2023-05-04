@@ -17,7 +17,7 @@ services:
       - REMOTE_PATH=/Machines/Volafacile
     volumes:
       - ./:/app
-      - ./crontab:/etc/crontab
+      - ./etc/crontab:/etc/crontab
       - ./tmp/mysql:/data/mysql
     links:
       - ftp

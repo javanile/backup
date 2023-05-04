@@ -1,6 +1,6 @@
 
 build:
-	@chmod +x backup.sh backup-entrypoint.sh cron-foreground.sh
+	@chmod +x bin/*.sh
 	@docker-compose build backup
 
 release:
@@ -11,6 +11,12 @@ release:
 	@docker login -u javanile
 	@docker build -t "javanile/backup:latest" .
 	@docker push "javanile/backup:latest"
+
+push:
+	@date > tests/RELEASE
+	@git add .
+	@git commit -am "New release!"
+	@git push
 
 ## ====
 ## Test
@@ -44,3 +50,7 @@ test-backup: build
 	@>crontab && rm -fr tmp/ftp/backup
 	@docker compose up -d --force-recreate
 	@docker compose exec backup backup.sh
+
+test-ping: build
+	@docker compose up -d --force-recreate
+	@docker compose exec backup ping.sh
