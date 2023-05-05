@@ -2,6 +2,8 @@
 # Author: Ambroise Maupate
 
 source /run/crond.env
+source /usr/local/lib/backup/log.sh
+source /usr/local/lib/backup/ftp.sh
 
 PGDUMP="$(which pg_dump)"
 MYSQLDUMP="$(which mysqldump)"
@@ -35,20 +37,15 @@ EOF
 backup_mysql_database() {
   SQL_FILE="${FILE_DATE}_mysql_${DB_NAME}.sql.gz"
 
-  echo "[`date '+%Y-%m-%d %H:%M:%S'`] MySQL dump '$DB_NAME' backup"
+  log "MySQL dump '$DB_NAME' backup"
 
   $MYSQLDUMP $MYSQLDUMP_OPTIONS -u $DB_USER -h $DB_HOST $DB_NAME | gzip > ${TMP_FOLDER}/${SQL_FILE}
 
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] Sending MySQL dump '${SQL_FILE}' over FTP"
 
-  ${LFTP} ${LFTP_CMD} <<EOF
-cache flush;
-cd ${REMOTE_PATH};
-put ${TMP_FOLDER}/${SQL_FILE};
-bye;
-EOF
+  ftp_file_upload "${TMP_FOLDER}/${SQL_FILE}"
 
-  echo "[$(date '+%Y-%m-%d %H:%M:%S')] File '${SQL_FILE}' successful stored."
+  log "File '${SQL_FILE}' successful stored."
 }
 
 #

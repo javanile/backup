@@ -47,6 +47,8 @@ COPY bin/ping.sh /usr/local/bin/
 COPY bin/backup-pgsql.sh /usr/local/bin/
 COPY bin/backup-mysql.sh /usr/local/bin/
 COPY bin/backup-files.sh /usr/local/bin/
+COPY lib/ftp.sh /usr/local/lib/backup/
+COPY lib/log.sh /usr/local/lib/backup/
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["cron-foreground.sh"]
