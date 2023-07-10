@@ -2,7 +2,7 @@
 # Author: Ambroise Maupate
 
 source /run/crond.env
-source backup-env.sh
+source /usr/local/lib/backup/env.sh
 
 PGDUMP="$(which pg_dump)"
 MYSQLDUMP="$(which mysqldump)"

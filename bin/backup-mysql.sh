@@ -53,14 +53,9 @@ backup_mysql_database() {
 ##
 clean_mysql_database() {
   SQL_FILE="${FILE_DATE}_mysql_${DB_NAME}.sql.gz"
-  local list=$(mktemp)
-  ftp_file_list "${list}"
 
-  echo "-----------------"
-  cat a.txt
-  echo "-----------------"
+  ftp_clean "${SQL_FILE}"
 }
-
 
 #
 # MySQL dump

@@ -14,7 +14,6 @@ TAR_OPTIONS="-zcf"
 SPLIT_OPTIONS="-b${CHUNK_SIZE}m"
 ## --column-statistics=0
 SQL_OPTIONS="--defaults-extra-file=/etc/mysql/temp_db.cnf --no-tablespaces"
-FILE_DATE=`date +%Y%m%d_%H%M`
 TMP_FOLDER=/tmp
 TAR_FILE="${FILE_DATE}_files.tar.gz"
 SQL_FILE="${FILE_DATE}_database.sql.gz"
