@@ -2,7 +2,8 @@
 # Author: Ambroise Maupate
 
 source /run/crond.env
-source backup-env.sh
+source /usr/local/lib/backup/env.sh
+source /usr/local/lib/backup/ftp.sh
 
 PGDUMP="$(which pg_dump)"
 MYSQLDUMP="$(which mysqldump)"
@@ -17,7 +18,6 @@ SPLIT_OPTIONS="-b${CHUNK_SIZE}m"
 SQL_OPTIONS="--defaults-extra-file=/etc/mysql/temp_db.cnf --no-tablespaces"
 TMP_FOLDER=/tmp
 TAR_FILE="${FILE_DATE}_files.tar.gz"
-SQL_FILE="${FILE_DATE}_database.sql.gz"
 LFTP_CMD="-u ${FTP_USER},${FTP_PASS} ${FTP_PROTO}://${FTP_HOST}:${FTP_PORT}"
 
 if [[ $COMPRESS -eq 0 ]]; then
@@ -62,3 +62,5 @@ EOF
 fi
 
 echo "[`date '+%Y-%m-%d %H:%M:%S'`] Files upload was done."
+
+ftp_clean "$TAR_FILE"

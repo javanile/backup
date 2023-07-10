@@ -5,14 +5,18 @@ crontab=/var/spool/cron/crontabs/root
 
 ## store environment variables
 printenv \
-  | sed 's/^\(.*\)$/export \1/g' \
-  | grep -E '^export FTP_|^export DB_|^export REMOTE_|^export LOCAL_|^export COMPRESS' > /run/crond.env
+  | sed 's/\(^[^=]*\)=\(.*\)/export \1="\2"/' \
+  | grep -E '^export FTP_|^export DB_|^export REMOTE_|^export LOCAL_|^export COMPRESS|^export BACKUP' > /run/crond.env
 
 cat /run/crond.env
 
 >$crontab
 chmod 600 $crontab
 chown root:crontab $crontab
+
+if [ -n "$BACKUP_SCHEDULE" ]; then
+  echo "$BACKUP_SCHEDULE backup > /var/log/cron 2>&1" >> $crontab
+fi
 
 if [[ "$1" =~ ^[0-9*] ]]; then
   while test $# -gt 0; do

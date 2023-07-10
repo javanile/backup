@@ -22,8 +22,8 @@ push:
 ## Test
 ## ====
 
-test-crontab-file:
-	@docker compose run --rm crontab cat /etc/crontab
+test-crontab-file: build
+	@docker compose run --rm backup cat /etc/crontab
 
 test-docker-ps:
 	@docker compose run --rm crontab docker ps
@@ -63,3 +63,6 @@ test-backup-files: build
 
 test-retention: build
 	@bash tests/retention-test.sh
+
+test-cron-env: build
+	@docker compose run --rm backup cat /run/crond.env

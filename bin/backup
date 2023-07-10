@@ -48,7 +48,7 @@ if [[ $? -ne 0 ]]; then
 fi
 
 ## Files
-#backup-files.sh
+backup-files.sh
 
 ## MySQL dump
 backup-mysql.sh
