@@ -2,6 +2,7 @@
 # Author: Ambroise Maupate
 
 source /run/crond.env
+source backup-env.sh
 source /usr/local/lib/backup/log.sh
 source /usr/local/lib/backup/ftp.sh
 
@@ -18,7 +19,6 @@ SPLIT_OPTIONS="-b${CHUNK_SIZE}m"
 ## --column-statistics=0
 MYSQL_OPTIONS="--defaults-extra-file=/etc/mysql/temp_db.cnf"
 MYSQLDUMP_OPTIONS="--defaults-extra-file=/etc/mysql/temp_db.cnf --no-tablespaces"
-FILE_DATE=`date +%Y%m%d_%H%M`
 TMP_FOLDER=/tmp
 TAR_FILE="${FILE_DATE}_files.tar.gz"
 LFTP_CMD="-u ${FTP_USER},${FTP_PASS} ${FTP_PROTO}://${FTP_HOST}:${FTP_PORT}"

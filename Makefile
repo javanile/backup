@@ -60,3 +60,6 @@ test-backup-mysql: build
 
 test-backup-files: build
 	@docker compose run --rm backup backup-files.sh
+
+test-retention: build
+	@bash tests/retention-test.sh

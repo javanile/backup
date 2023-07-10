@@ -4,7 +4,7 @@ services:
   backup:
     build: .
     command:
-      - 0 0 0 * * backup.sh daily
+      - 0 0 0 * * backup
     environment:
       - DB_HOST=mysql
       - DB_USER=root

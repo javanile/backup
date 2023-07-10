@@ -34,7 +34,7 @@ RUN apt-get update -yqq && \
 
 ADD etc/lftp.conf /etc/lftp.conf
 ADD etc/ssh/ssh_config.d/strict.conf /etc/ssh/ssh_config.d/strict.conf
-COPY bin/backup.sh bin/docker-entrypoint.sh bin/cron-foreground.sh /usr/local/bin/
+COPY bin/backup bin/docker-entrypoint.sh bin/cron-foreground.sh /usr/local/bin/
 
 # Create cronjob log file
 RUN touch /var/log/cron
@@ -44,6 +44,7 @@ RUN echo "cron.* /dev/stdout" >> /etc/rsyslog.conf && rm -fr /etc/cron.* && mkdi
 #CMD ["/bin/bash","/conf/doBackup.sh"]
 
 COPY bin/ping.sh /usr/local/bin/
+COPY bin/backup-env.sh /usr/local/bin/
 COPY bin/backup-pgsql.sh /usr/local/bin/
 COPY bin/backup-mysql.sh /usr/local/bin/
 COPY bin/backup-files.sh /usr/local/bin/
