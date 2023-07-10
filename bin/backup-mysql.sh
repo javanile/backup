@@ -2,7 +2,7 @@
 # Author: Ambroise Maupate
 
 source /run/crond.env
-source backup-env.sh
+source /usr/local/lib/backup/env.sh
 source /usr/local/lib/backup/log.sh
 source /usr/local/lib/backup/ftp.sh
 
@@ -48,6 +48,20 @@ backup_mysql_database() {
   log "File '${SQL_FILE}' successful stored."
 }
 
+##
+# Backup single database
+##
+clean_mysql_database() {
+  SQL_FILE="${FILE_DATE}_mysql_${DB_NAME}.sql.gz"
+  local list=$(mktemp)
+  ftp_file_list "${list}"
+
+  echo "-----------------"
+  cat a.txt
+  echo "-----------------"
+}
+
+
 #
 # MySQL dump
 #
@@ -58,8 +72,10 @@ else
     ignore_database='information_schema|mysql|performance_schema|sys'
     for DB_NAME in $($MYSQL $MYSQL_OPTIONS -u $DB_USER -h $DB_HOST -B -N -e "SHOW DATABASES;" | grep -v -E '^('$ignore_database')$'); do
       backup_mysql_database
+      clean_mysql_database
     done
   else
     backup_mysql_database
+    clean_mysql_database
   fi
 fi

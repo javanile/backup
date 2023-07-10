@@ -32,3 +32,15 @@ put ${file};
 bye;
 EOF
 }
+
+##
+#
+##
+function ftp_file_list() {
+  ${LFTP} ${LFTP_CMD} << EOF
+cd ${REMOTE_PATH}
+cache flush
+cls -q -1 --date --time-style="+%Y%m%d" > $1
+quit
+EOF
+}
